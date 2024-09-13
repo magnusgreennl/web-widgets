@@ -125,7 +125,7 @@ export default function BundledEditor(props: BundledEditorProps): ReactElement {
 
     const openMaitoDialog = (editor: TinyMCEEditor) => {
         editor.windowManager.open({
-            title: "E-mail",
+            title: "Email",
             body: {
                 type: "panel",
                 //items composing the dialog
@@ -134,6 +134,12 @@ export default function BundledEditor(props: BundledEditorProps): ReactElement {
                         type: "input",
                         name: "inputMailto",
                         label: "Emailadres*",
+                        maximized: true
+                    },
+                    {
+                        type: "input",
+                        name: "inputDisplayText",
+                        label: "Weer te geven tekst*",
                         maximized: true
                     },
                     {
@@ -172,11 +178,14 @@ export default function BundledEditor(props: BundledEditorProps): ReactElement {
                 const mailto = Object.entries(data)
                     .find(value => value[0] === "inputMailto")![1]
                     .toString();
-                const display = "test";
-                if (mailto) {
-                    const subject = Object.entries(data)
-                        .find(value => value[0] === "inputSubject")![1]
-                        .toString();
+                const display = Object.entries(data)
+                    .find(value => value[0] === "inputDisplayText")![1]
+                    .toString();
+                if (mailto && display) {
+                    const subject =
+                        Object.entries(data)
+                            .find(value => value[0] === "inputSubject")![1]
+                            ?.toString() || " ";
                     const body = Object.entries(data)
                         .find(value => value[0] === "inputBody")![1]
                         .toString();
