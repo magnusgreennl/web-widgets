@@ -161,14 +161,14 @@ export default function BundledEditor(props: BundledEditorProps): ReactElement {
                 //this is a footer button
                 //https://www.tiny.cloud/docs/tinymce/6/dialog-footer-buttons/
                 {
-                    type: "cancel",
-                    text: "Cancel",
-                    align: "end"
+                    type: "submit",
+                    text: "Opslaan",
+                    buttonType: "primary"
                 },
                 {
-                    type: "submit",
-                    text: "Save",
-                    buttonType: "primary"
+                    type: "cancel",
+                    text: "Annuleren",
+                    align: "end"
                 }
             ],
 
