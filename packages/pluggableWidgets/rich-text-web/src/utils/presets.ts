@@ -46,7 +46,8 @@ const TOOLBAR_GROUP: ToolbarGroup[] = [
     { name: "code", groups: ["code", "codesample"] },
     { name: "anchor", groups: ["anchor"] },
     { name: "direction", groups: ["ltr", "rtl"] },
-    { name: "link", groups: ["link", "unlink", "openlink"] },
+    { name: "mailto", groups: ["mailto"] },
+    { name: "link", groups: ["mailto", "link", "unlink", "openlink"] },
     { name: "list", groups: ["bullist", "numlist"] },
     { name: "preview", groups: ["preview", "fullscreen"] },
     { name: "table", groups: ["table", "tabledelete", "tableinsertdialog"] },
@@ -63,27 +64,28 @@ export function createPreset(type: PresetEnum, config?: Partial<RichTextContaine
             toolbar: false
         };
     }
+
     switch (type) {
         case "basic":
             return {
-                toolbar: "bold italic | bullist numlist | outdent indent | link | removeformat | help"
+                toolbar: "bold italic | bullist numlist | outdent indent | mailto link | removeformat | help"
             };
         case "standard":
             return {
                 toolbar:
-                    "undo redo | bold italic strikethrough | removeformat | bullist numlist | blockquote | outdent indent | ltr rtl | alignleft aligncenter alignright alignjustify | fontfamily fontsize forecolor backcolor | image link media | blocks anchor | cut copy paste pastetext | codesample preview code | selectall fullscreen | help"
+                    "undo redo | bold italic strikethrough | removeformat | bullist numlist | blockquote | outdent indent | ltr rtl | alignleft aligncenter alignright alignjustify | fontfamily fontsize forecolor backcolor | image mailto link media | blocks anchor | cut copy paste pastetext | codesample preview code | selectall fullscreen | help"
             };
         case "full":
             return {
                 toolbar:
-                    "undo redo | bold italic underline strikethrough | superscript subscript | removeformat | bullist numlist | blockquote | outdent indent | ltr rtl | alignleft aligncenter alignright alignjustify | fontfamily fontsize forecolor backcolor | image link media | blocks anchor | cut copy paste pastetext | codesample preview code | emoticons insertdatetime searchreplace | selectall fullscreen | help"
+                    "undo redo | bold italic underline strikethrough | superscript subscript | removeformat | bullist numlist | blockquote | outdent indent | ltr rtl | alignleft aligncenter alignright alignjustify | fontfamily fontsize forecolor backcolor | image mailto link media | blocks anchor | cut copy paste pastetext | codesample preview code | emoticons insertdatetime searchreplace | selectall fullscreen | help"
             };
         case "custom":
             return constructCustomToolbar(config);
         default:
             return {
                 toolbar:
-                    "undo redo | bold italic forecolor | removeformat | bullist numlist | outdent indent | alignleft aligncenter alignright alignjustify | image link media | blocks | codesample preview code | help"
+                    "undo redo | bold italic forecolor | removeformat | bullist numlist | outdent indent | alignleft aligncenter alignright alignjustify | image mailto link media | blocks | codesample preview code | help"
             };
     }
 }
@@ -98,9 +100,9 @@ function constructCustomToolbar(config?: Partial<RichTextContainerProps>): Edito
 }
 
 function defineBasicGroups(widgetProps: Partial<RichTextContainerProps>): string[] {
-    const enabledGroups = Object.entries(widgetProps).flatMap(([prop, enabled]) =>
-        toolbarGroups.find(toolbarGroup => toolbarGroup === prop) && enabled ? [prop] : []
-    );
+    const enabledGroups = Object.entries(widgetProps).flatMap(([prop, enabled]) => {
+        return toolbarGroups.find(toolbarGroup => toolbarGroup === prop) && enabled ? [prop] : [];
+    });
 
     const res = enabledGroups.map((groupName: string) =>
         groupName.includes("separator")
@@ -113,7 +115,6 @@ function defineBasicGroups(widgetProps: Partial<RichTextContainerProps>): string
 
 function defineAdvancedGroups(widgetProps: Partial<RichTextContainerProps>): string[] {
     const { advancedConfig: items } = widgetProps;
-
     const result: string[] = [];
     let toolbarItem: string[] = [];
     items?.forEach(item => {

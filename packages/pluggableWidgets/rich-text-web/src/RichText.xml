@@ -342,6 +342,7 @@
                                 <enumerationValue key="help">help</enumerationValue>
                                 <enumerationValue key="image">image</enumerationValue>
                                 <enumerationValue key="insertdatetime">insertdatetime</enumerationValue>
+                                <enumerationValue key="mailto">mailto</enumerationValue>
                                 <enumerationValue key="link">link</enumerationValue>
                                 <enumerationValue key="openlink">openlink</enumerationValue>
                                 <enumerationValue key="unlink">unlink</enumerationValue>

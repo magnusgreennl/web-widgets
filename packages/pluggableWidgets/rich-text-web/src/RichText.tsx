@@ -31,7 +31,6 @@ export default function RichText(props: RichTextContainerProps): JSX.Element {
         heightUnit
     });
     const wrapperAttributes = stringAttribute?.readOnly && readOnlyStyle !== "readPanel" ? { readOnly: true } : {};
-
     const presets = createPreset(preset, props);
     const menubar = createMenubar(menubarMode, props);
     const wrapperStyle = constructWrapperStyle(props, { width, height });
